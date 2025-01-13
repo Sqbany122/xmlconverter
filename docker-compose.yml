@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  php:
+    container_name: xmlconverter
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "4002:4002"
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.xmlconverter.rule=Host(`xmlconverter.letstest.pl`)"
+      - "traefik.http.routers.xmlconverter.entrypoints=web"
+      - "traefik.http.middlewares.xmlconverter-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.xmlconverter.middlewares=xmlconverter-https-redirect"
+      - "traefik.http.routers.xmlconverter-secure.entrypoints=websecure"
+      - "traefik.http.routers.xmlconverter-secure.rule=Host(`xmlconverter.letstest.pl`)"
+      - "traefik.http.routers.xmlconverter-secure.tls=true"
+      - "traefik.http.routers.xmlconverter-secure.tls.certresolver=letsencrypt"
+      - "traefik.http.services.xmlconverter.loadbalancer.server.port=4002"
+      - "traefik.docker.network=traefik"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
