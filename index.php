@@ -1,10 +1,8 @@
 <?php
 
-$dom = new DOMDocument();
-$dom->preserveWhiteSpace = false;
-$dom->formatOutput = true;
-
-$dom
+// $dom = new DOMDocument();
+// $dom->preserveWhiteSpace = false;
+// $dom->formatOutput = true;
 
 ?>
 
