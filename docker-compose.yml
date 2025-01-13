@@ -5,9 +5,9 @@ services:
     container_name: xmlconverter
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./docker/php/Dockerfile
     volumes:
-      - .:/var/www/html
+      - ./app:/var/www/html
     ports:
       - "4002:4002"
     restart: always
